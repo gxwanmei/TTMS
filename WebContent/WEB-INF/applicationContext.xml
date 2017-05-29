@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		<!-- 配置完成以后，就会自动的将该包进行扫描，然后将所有有注解的类通过bean注册进spring IoC容器当中，供处理器映射和处理器适配器映射选择 -->
+		<context:component-scan base-package="com.ttms.*"></context:component-scan>
+	
+		<context:property-placeholder location="classpath:db.properties"/>
+		 <!-- 配置数据源 -->
+		 <!-- apacheDBCP连接池 -->
+    	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+			<!-- 数据源连接参数配置； -->
+		    <property name="user" value="${db.username}"></property>
+			<property name="password" value="${db.password}"></property>	
+			<property name="driverClass" value="${db.driver}"></property>	
+			<property name="jdbcUrl" value="${db.url}"></property>	
+			<property name="initialPoolSize" value="${c3p0.initialPoolSize}"></property>	
+			<property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+       	</bean> 
+	<!-- 配置SessionFactory -->
+     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<!-- 配置数据源，让MyBatis框架知道数据库连接对象的具体位置-->
+   		<property name="dataSource" ref="dataSource"></property>
+   		<!-- 配置类型别名包，告诉spring框架具体是哪一个包下的类型 -->
+   		<property name="typeAliasesPackage" value="com.ttms.model"></property>
+   		<!-- 配置具体的要映射的xml文件的位置 -->
+   		<property name="mapperLocations">
+   			<!-- 将所有的映射xml文件进行配置，springIoC容器在创建的时候，自动的解析映射的xml文件 -->
+    		<value>classpath:com/ttms/dao/*Dao.xml</value>
+   		</property>
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ttms.dao"></property>	
+	</bean>
+    	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    		<property name="dataSource" ref="dataSource"></property>
+    	</bean>
+    
+		<!-- 2.配置事务属性 -->
+		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+				<tx:method name="search*" read-only="true" propagation="REQUIRED"/>
+				<tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+				<tx:method name="*" propagation="REQUIRED"/>
+			</tx:attributes>
+		</tx:advice>
+		<aop:config>
+    		<aop:pointcut expression="execution(* com.ttms.service.*.*(..))" id="txPointCut"/>
+    		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    	</aop:config>
+</beans>
+
+
