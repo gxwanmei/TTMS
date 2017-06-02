@@ -1,0 +1,20 @@
+#logo{
+    width: 50px;
+}
+.navbar{
+    border: none;
+}
+#navbar-collapse{
+    margin-top: 10px;
+}
+.change{
+    font-size: 17px;
+}
+#bulletinBoard {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    margin-right: 30%;
+    text-align: center;
+    border: solid 1px #000000;
+}
+

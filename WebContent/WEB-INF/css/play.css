@@ -1,0 +1,38 @@
+#myTabContent {
+	margin-top: 20px;
+}
+
+.picture {
+	width: 166px;
+	height: 245px;
+}
+
+.show {
+	margin-left: 80px;
+	margin-bottom: 50px;
+	border-radius: 6px;
+	position: relative;
+	float: left;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.informationShow {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	visibility: hidden;
+}
+
+.show:hover .informationShow {
+	width: 166px;
+	height: 245px;
+	border-radius: 6px;
+	background: #000;
+	text-align: center;
+	color: #fff;
+	filter: alpha(opacity = 60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	visibility: visible;
+}

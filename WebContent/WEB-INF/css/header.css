@@ -1,0 +1,51 @@
+* h1{
+	font-size:30px;
+	color:#990033;
+}
+#logo>img {
+	height: 70px;
+	width: 70px;
+	border-radius: 50%;
+}
+
+#headPortrait>img {
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.head {
+	display: inline-block;
+}
+
+.headUser {
+	display: inline-block;
+}
+
+#head {
+	height: 90px;
+	text-align: center;
+	background-color: #FFCC99; 
+}
+
+#user {
+	margin-left: 5%;
+}
+
+.navHead {
+	display: inline-block;
+	margin-left: 50px;
+	font-size: 20px;
+	color: white;
+}
+
+.navHead:hover {
+	color: #336633;
+	cursor: pointer;
+}
+
+#nav {
+	text-align: center;
+	
+}
