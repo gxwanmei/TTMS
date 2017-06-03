@@ -67,5 +67,18 @@ public class UserServiceImp implements UserService{
 		}
 		return pwd;
 	}
+	@Override
+	public int updateUserPhoto(User user) {
+		int count=0;
+		try {
+			count=dao.updateUserPhoto(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 
 }

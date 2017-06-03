@@ -42,8 +42,7 @@
 						<td>222@21cn.com</td>
 						<td><a href="#"> <img src="/TTMS_v1.0/img/modify.png"
 								data-toggle="modal" data-target="#modifyEmployee" />
-						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-								src="/TTMSv_1.0/img/delete.png" onclick="deleteInformation()" /></a>
+						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img src="/TTMS_v1.0/img/delete.png"  onclick="deleteInformation()" /></a>
 					</tr>
 				</tbody>
 			</table>

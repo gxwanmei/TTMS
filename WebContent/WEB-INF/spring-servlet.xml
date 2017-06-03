@@ -20,7 +20,12 @@
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
 	<mvc:resources location="/WEB-INF/img/" mapping="/img/**"/>
 	<mvc:resources location="/WEB-INF/user_photo/" mapping="/user_photo/**"/>
-	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxInMemorySize" value="5242880"></property><!-- 设置最大一次文件大小 ，超过了就会自动的放在此磁盘上处理-->
+		<property name="maxUploadSize" value="10485760"></property>	<!-- 设置文件一次性上传的总大小 （10兆）-->
+		<property name="defaultEncoding" value="utf-8"></property>	<!-- 设置文件的默认编码格式  -->
+	</bean>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value= "/"/>
 		<property name="suffix" value= ".jsp"/>

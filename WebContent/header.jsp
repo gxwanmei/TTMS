@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,12 +28,21 @@
 			<div class="navHead">演出计划管理</div>
 			<div class="navHead">人员管理</div>
 		</div>
+		
 		<div id="user" class="head">
 			<div id="headPortrait" class="headUser">
-				<img src="/TTMS_v1.0/${u_photo}" data-toggle="modal" data-target="#headModal" />
+				<c:choose>
+					<c:when test="${u_photoUp == NULL}">
+						<img src="/TTMS_v1.0/${u_photo}" data-toggle="modal" data-target="#headModal" />
+					</c:when>
+					<c:otherwise>
+						<img src="${u_photoUp}" data-toggle="modal" data-target="#headModal" />
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="headUser">
-				<h5>${name }</h5>
+				
+				<h5>${name}</h5>
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			<div class="headUser">
@@ -46,15 +56,16 @@
 				<div class="modal-header" align="center">
 					<h4 class="modal-title" id="headModalLabel">上传头像</h4>
 				</div>
-				<form action="#" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/user/upload.do" method="post" enctype="multipart/form-data">
 					<div class="modal-body" align="center">
+						<input type="hidden" name="id" value="${userid}">
 						<input type="file" name="file">
 					</div>
 					<div class="modal-footer">
 						<div align="center">
-							<a href="#"> <input type="submit" class="btn btn-danger"
+							<input type="submit" class="btn btn-danger"
 								value="提交">
-							</a>
+							
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">取消</button>
 						</div>

@@ -12,4 +12,5 @@ public interface UserService {
 	public List<User> getAll();
 	public List<User> getUserByPage(Page page);
 	public String getPasswordByName(String username);
+	public int updateUserPhoto(User user);
 }

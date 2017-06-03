@@ -15,4 +15,7 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<select id="getPasswordByName" parameterType="String" resultType="String">
 		select password from user where username = #{username}
 	</select>
+	<update id="updateUserPhoto" parameterType="com.ttms.model.User">
+		update user set u_photo=#{u_photo} where id=#{id}
+	</update>
 </mapper>
