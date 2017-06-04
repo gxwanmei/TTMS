@@ -6,9 +6,21 @@
 <title>人员管理</title>
 
 <script type="text/javascript" src="/TTMSv_1.0/js/employee.js"></script>
+<script src="/TTMS_v1.0/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#get").click(function() {
+			alert("123");
+			$.post("studio/query.do",{},function(data){
+				
+			},"json")
+		})
+	})
 
+</script>
 </head>
 <body>
+<button id="get">get</button>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="contanier">
 		<div>
@@ -35,14 +47,15 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td><input type="hidden" value="${id }"></td>
 						<td>110</td>
 						<td>李四</td>
 						<td>22222</td>
 						<td>莲湖路22号</td>
 						<td>222@21cn.com</td>
-						<td><a href="#"> <img src="/TTMS_v1.0/img/modify.png"
-								data-toggle="modal" data-target="#modifyEmployee" />
-						</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img src="/TTMS_v1.0/img/delete.png"  onclick="deleteInformation()" /></a>
+						<td><img src="/TTMS_v1.0/img/modify.png"
+								data-toggle="modal" data-target="#modifyEmployee"  />
+						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/TTMS_v1.0/img/delete.png"  onclick="deleteInformation()" />
 					</tr>
 				</tbody>
 			</table>

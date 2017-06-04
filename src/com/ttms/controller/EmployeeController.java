@@ -45,4 +45,18 @@ public class EmployeeController {
 	
 		return employeeService.getAllByPage(page);
 	}
+	@RequestMapping(path="/get.do")
+	@ResponseBody
+	public List<Employee> getAllEmployee()
+	{
+		
+		return employeeService.getAllEmployee();
+	}
+	@RequestMapping(path="/get1.do")
+	@ResponseBody
+	public Employee getEmployeeById(Employee employee)
+	{
+		System.out.println(employee.getEmp_id());
+		return employeeService.getEmployeeById(employee.getEmp_id());
+	}
 }

@@ -84,6 +84,35 @@ public class EmployeeServiceImp implements EmployeeService{
 		}
 		return list;
 	}
+
+	@Override
+	public Employee getEmployeeById(int id) {
+		Employee emp = null;
+		try {
+			emp=dao.getEmployeeById(id);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return emp;
+	}
+
+	@Override
+	public List<Employee> getAllEmployee()  {
+		List<Employee> list =null;
+		try {
+			list=dao.getAllEmployee();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 
 }

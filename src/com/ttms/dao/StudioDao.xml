@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.StudioDao">
+	<insert id="Insert" parameterType="com.ttms.model.Studio">
+		insert into studio
+			(studio_name,studio_language,studio_size,studio_type)
+			values(#{studio_name},#{studio_language},#{studio_size},#{studio_type})	
+	</insert>
+	<delete id="deleteStudioById" parameterType="int">
+	 		delete from studio where studio_id=#{id}
+	</delete>
+	<update id="updateStudioById" parameterType="com.ttms.model.Studio">
+			update studio set studio_name=#{studio_name},studio_language=#{studio_language},
+				studio_type=#{studio_type},studio_size=#{studio_size} where
+				studio_id=#{studio_id}
+	</update>
+	<select id="Query" resultType="com.ttms.model.Studio">
+			select * from studio
+	</select>
+</mapper>

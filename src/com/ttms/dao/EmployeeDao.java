@@ -15,5 +15,9 @@ public interface EmployeeDao {
 	
 	public int getCount()throws SQLException;
 	
+	public Employee getEmployeeById(int id) throws SQLException;
+	
+	public List<Employee> getAllEmployee() throws SQLException;
+	
 	public List<Employee> getAllByPage(Page page)throws SQLException;
 }

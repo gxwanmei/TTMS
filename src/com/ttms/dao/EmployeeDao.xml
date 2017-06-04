@@ -21,4 +21,10 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<select id="getAllByPage" parameterType="com.ttms.common.Page" resultType="com.ttms.model.Employee">
 		select * from employee order by emp_id limit #{Offset},#{pageSize}
 	</select>
+	<select id="getAllEmployee" resultType="com.ttms.model.Employee">
+		select * from employee 
+	</select>
+	<select id="getEmployeeById" resultType="com.ttms.model.Employee">
+		select * from employee where emp_id = #{id}
+	</select>
 </mapper>

@@ -1,5 +1,4 @@
 package com.ttms.service;
-
 import java.util.List;
 
 import com.ttms.common.Page;
@@ -11,4 +10,6 @@ public interface EmployeeService {
 	public int updateEmp(Employee employee);
 	public int getCount();
 	public List<Employee> getAllByPage(Page page);
+	public Employee getEmployeeById(int id);
+	public List<Employee> getAllEmployee();
 }
