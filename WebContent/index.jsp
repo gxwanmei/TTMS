@@ -21,7 +21,6 @@
 			var flag=false;
 	
 			$.post("user/login.do",{username:$("#name").val(),password:$("#pwd").val()},function(data){
-				alert(data);
 				if(data==="0")
 				{
 					alert("登陆失败,账号密码错误");

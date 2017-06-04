@@ -85,7 +85,7 @@ public class UserController {
 		{
 			
 		}
-		return "employee";
+		return "redirect:/employee.jsp";
 	}
 	@RequestMapping(path="/logout.do")
 	public String logout(HttpSession session)
