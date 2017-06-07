@@ -1,141 +1,145 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"
-	href="http://static.runoob.com/assets/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="http://static.runoob.com/assets/jquery/2.0.3/jquery.min.js"></script>
-<script
-	src="http://static.runoob.com/assets/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../css/homePage.css">
-<link rel="stylesheet" href="../css/seat.css">
-<script src="../js/seat.js"></script>
 <title>剧院管理系统主页</title>
+<link rel="stylesheet" href="/TTMS_v1.0/css/seat.css">
+<script src="/TTMS_v1.0/js/seat.js"></script>
+<script src="/TTMS_v1.0/js/jquery.min.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		$.ajaxSetup({
+			  async: false
+			  });
+		var url = window.location.href;
+		var arr = url.split("?");
+		var array = arr[arr.length-1].split("&");
+		var studio_id = array[0].split("=")[1];
+		var studio_size = array[1].split("=")[1];
+		$.post("/TTMS_v1.0/studio/creat.do",{"studio_id":studio_id,"studio_size":studio_size},function(data){
+			var studioName = data[0].studio.studio_name;
+			var row;
+			var colum;
+			for(var i = 0; i < data.length; i++){
+				var val = data[i];
+				if(val.studio.studio_size === "default"){
+					row = 6;
+					colum = 9;
+				}
+				else if(val.studio.studio_size === "small"){
+					row = 5;
+					colum = 8;
+				}
+				else{
+					row = 7;
+					colum = 10;
+				}
+			}
+			
+			var tr = "";
+			var x = 0;
+				for(var j = 0; j < row; j++){
+					tr += "<tr>"
+					for(var k = 0; k < colum; k++){
+						var jRow = j+1;
+						var kColum = k+1;
+						if(data[x].seat_status === "1"){
+							tr+="<td><img src='/TTMS_v1.0/img/seat2.jpg' style='margin:25px' row='"+jRow+"' colum='"+kColum+"' status='1' class='seatImage'></td>";
+						}
+						else{
+							tr+="<td><img src='/TTMS_v1.0/img/seat1.jpg' style='margin:25px' row='"+jRow+"' colum='"+kColum+"' status='0' class='seatImage'></td>";
+						}
+						x++;	
+					}
+					tr+="</tr>";
+				}
+			$("#displayStudioName").html("<h4>"+studioName+"</h4>")
+			$("#displaySeatsTable").html(tr);
+			$(".seatImage").click(function(){
+				var imageThis = $(this);
+				var seatRow = imageThis.attr("row");
+				var seatColum = imageThis.attr("colum");
+				var seatStatus = imageThis.attr("status");
+				$("#displayTableRow").html(seatRow);
+				$("#displayTableColum").html(seatColum);
+				
+				if(seatStatus === "1"){
+					$("#displayTableStatus").val('1');
+				}
+				else{
+					$("#displayTableStatus").val('0');
+				}
+				$("#displayTableStatus").change(function(){
+					var seatRow = $("#displayTableRow").text();
+					var seatColum = $("#displayTableColum").text();
+					var seatStatus = $(this).val();
+					$.post("/TTMS_v1.0/studio/updateSeat.do",{"seat_row":seatRow,"seat_colum":seatColum,"seat_status":seatStatus,"studio.studio_id":studio_id},function(data){
+						if(data==1)
+						{	
+							//if(seatStatus === "0"){
+								//var str = "<img src='/TTMS_v1.0/img/seat1.jpg' style='margin:25px' row='"+seatRow+"' colum='"+seatColum+"' status='"+seatStatus+"' class='seatImage'>";
+								//imageThis.parent().html(str);
+							//}else{
+								//var str = "<img src='/TTMS_v1.0/img/seat2.jpg' style='margin:25px' row='"+seatRow+"' colum='"+seatColum+"' status='"+seatStatus+"' class='seatImage'>";
+								//imageThis.parent().html(str);
+							//}
+							 location.reload();
+						}
+						else
+						{
+							alert("修改失败");
+						}	
+					})
+				})
+			})
+		})
+		
+	}
+</script>
+
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation">
-	<div class="container-fluid" id="navbar">
-		<div class="navbar-header col-lg-3">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#navbar-collapse">
-				<span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"> <span><img
-					class="img-circle " src="../img/logo.jpg" id="logo" />剧院管理系统</span>
-			</a>
+	<jsp:include page="header.jsp"></jsp:include>
+	<div class="contanier">
+		<div align="right">
+			<img src="/TTMS_v1.0/img/seat1.jpg"><span>可选座位</span> &nbsp;<img
+				src="/TTMS_v1.0/img/seat2.jpg"><span>不可选座位</span>
 		</div>
-		<div class="collapse navbar-collapse" id="navbar-collapse">
-			<ul class="nav navbar-nav col-lg-offset-9">
-				<li class="active"><a
-					href="<%=request.getContextPath() %>/project/studio.html"><span
-						class="glyphicon change">演出厅管理</span> </a></li>
-				<li><a href="<%=request.getContextPath() %>/project/play.html"><span
-						class="glyphicon change">剧目管理</span> </a></li>
-				<li><a
-					href="<%=request.getContextPath() %>/Manager/employee.jsp"><span
-						class="glyphicon change">人员管理</span> </a></li>
-				<li><a
-					href="<%=request.getContextPath() %>/project/performancePlan.jsp"><span
-						class="glyphicon change">演出计划管理</span> </a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><img alt="请上传头像" src="#" data-toggle="modal"
-					data-target="#headModal" style="width: 50px; border-radius: 50%" />
-				</li>
-				<li><a href="#"><span class="glyphicon glyphicon-user">姓名</span>
-				</a></li>
-				<li><a
-					href="<%=request.getContextPath() %>/baseServlet?oprate=quit"><span
-						class="glyphicon glyphicon-off">退出</span> </a></li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-	<div class="modal fade" id="headModal" tabindex="-1"
-		aria-labelledby="headModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header" align="center">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="headModalLabel">上传头像</h4>
+		<div class="col-lg-12">
+			<div class="seat col-xs-7" align="right">
+				<table id = "displaySeatsTable">
+					
+						<c:forEach items="${seats}" var="seat" varStatus="x">
+							<tr>
+								<td><img src="/TTMS_v1.0/img/seat1.jpg" style="margin:25px" onClick=""></td>
+							</tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div class="col-xs-3 col-xs-offset-2" style="margin-top: 100px">
+				<div class="table-responsive" align="right">
+					<div align="center" id="displayStudioName">
+					</div>
+					<table class="table">
+							<tr>
+								<td>所在行</td>
+								<td id="displayTableRow">0</td>
+							</tr>
+							<tr>
+								<td>所在列</td>
+								<td id="displayTableColum">0</td>
+							</tr>
+								<tr>
+								<td>状态</td>
+								<td><select style="width:70px" id="displayTableStatus"><option value="0">可选</option><option value="1">不可选</option></select></td>
+							</tr>
+					</table>
 				</div>
-				<form action="#" method="post" enctype="multipart/form-data">
-					<div class="modal-body col-lg-12" align="center">
-						选择头像<input type="file" name="file" class="input">
-
-					</div>
-					<div class="modal-footer">
-						<div align="center">
-							<a href="#"> <input type="submit" class="btn btn-danger"
-								value="提交" onclick="return isPic()">
-							</a>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">取消</button>
-						</div>
-					</div>
-				</form>
 			</div>
 		</div>
-	</div>
-	<div class="col-lg-12">
-		<div id="tital">
-			<button>银幕</button>
-		</div>
-		<div
-			class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-offset-10">
-			<img src='../img/seat1.jpg'><span>可选座位</span>
-			&nbsp;&nbsp;&nbsp;&nbsp; <img src='../img/seat2.jpg'><span>不可选座位</span>
-		</div>
-		<div class="seat" align="center">
-			<table>
-			</table>
-		</div>
-		<!--     <div class="seat" align="center">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div>
-    <div class="seat" align="center">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div>
-    <div class="seat" align="center">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat2.jpg' onClick="src='../img/seat1.jpg',seat1()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div>
-    <div class="seat" align="center">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div>
-    <div class="seat" align="center">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat2.jpg' onClick="src='../img/seat1.jpg',seat1()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div>
-    <div class="seat" align="center">
-        <img src='../img/seat2.jpg' onClick="src='../img/seat1.jpg',seat1()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-        <img src='../img/seat1.jpg' onClick="src='../img/seat2.jpg',seat()">
-    </div> -->
 	</div>
 </body>
 </html>

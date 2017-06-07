@@ -11,8 +11,8 @@
 	$(function() {
 		$("#get").click(function() {
 			alert("123");
-			$.post("studio/query.do",{},function(data){
-				
+			$.post("studio/creat.do",{"studio_id":1,"studio_size":"default"},function(data){
+				alert(data)
 			},"json")
 		})
 	})
@@ -20,7 +20,6 @@
 </script>
 </head>
 <body>
-<button id="get">get</button>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="contanier">
 		<div>

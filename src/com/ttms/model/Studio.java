@@ -45,6 +45,13 @@ public class Studio {
 	public void setStudio_type(String studio_type) {
 		this.studio_type = studio_type;
 	}
+	@Override
+	public String toString() {
+		return "Studio [studio_id=" + studio_id + ", studio_name=" + studio_name + ", studio_language="
+				+ studio_language + ", studio_size=" + studio_size + ", studio_type=" + studio_type + ", seats=" + seats
+				+ "]";
+	}
+	
 	
 	
 }

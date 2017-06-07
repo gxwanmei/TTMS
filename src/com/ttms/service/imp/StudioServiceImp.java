@@ -61,10 +61,10 @@ public class StudioServiceImp implements StudioService {
 	}
 
 	@Override
-	public List<Studio> Query() {
+	public List<Studio> Query(Studio studio) {
 		List<Studio> list=null;
 		try {
-			list=dao.Query();
+			list=dao.Query(studio);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,6 +73,49 @@ public class StudioServiceImp implements StudioService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Studio> getAllStudio(Studio studio) {
+		List<Studio> list=null;
+		try {
+			list=dao.getAllStudio(studio);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Studio getStudioById(Studio studio) {
+		Studio temp = null;
+		try {
+			temp=dao.getStudioById(studio);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
+
+	@Override
+	public List<Studio> QueryAll() {
+		List<Studio> list=null;
+		try {
+			list=dao.QueryAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 		
 }
 	

@@ -52,6 +52,7 @@ public class EmployeeController {
 		
 		return employeeService.getAllEmployee();
 	}
+	
 	@RequestMapping(path="/get1.do")
 	@ResponseBody
 	public Employee getEmployeeById(Employee employee)

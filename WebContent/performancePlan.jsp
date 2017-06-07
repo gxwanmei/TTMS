@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>剧目管理</title>
+<script src="/TTMS_v1.0/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#get").click(function() {
+			//$.post("/TTMS_v1.0/schedule/update.do",{"sched_id":"3","studio.studio_id":"2",
+				//"play.play_id":"1","sched_time":"2017.8.8","sched_ticket_price":"30.0"},function(data){
+					//alert(data);
+			//})
+			$.post("/TTMS_v1.0/schedule/date.do",{"sched_time":"2017.8.8"},function(data){
+					alert(data);
+			})
+		})
+	})
+</script>
 </head>
 <body>
+<button id="get">get</button>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="contanier">
 		<div id="information">
@@ -37,18 +53,24 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<c:forEach items="${studios}" var="st" varStatus="id">
+									
+								
+								
+								</c:forEach>
+								<!--  <tr>
 									<td>1号</td>
 									<td>小时代</td>
 									<td>王波厅</td>
 									<td>2016.9.20</td>
 									<td>9:00</td>
 									<td>11:00</td>
-									<td><a href="#"> <img src="../img/modify.png"
+									<td><a href="#"> <img src="/TTMS_v1.0/img/modify.png"
 											data-toggle="modal" data-target="#modifyPerformancePlan" />
 									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="../img/delete.png" onclick="deleteInformation()" /> </a></td>
+											src="/TTMS_v1.0/img/delete.png" onclick="deleteInformation()" /> </a></td>
 								</tr>
+								-->
 							</tbody>
 						</table>
 					</div>
@@ -75,10 +97,10 @@
 									<td>2016.9.20</td>
 									<td>9:00</td>
 									<td>11:00</td>
-									<td><a href="#"> <img src="../img/modify.png"
+									<td><a href="#"> <img src="/TTMS_v1.0/img/modify.png"
 											data-toggle="modal" data-target="#modifyPerformancePlan" />
 									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="../img/delete.png" onclick="deleteInformation()" /> </a></td>
+											src="/TTMS_v1.0/img/delete.png" onclick="deleteInformation()" /> </a></td>
 								</tr>
 							</tbody>
 						</table>

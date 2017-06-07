@@ -36,5 +36,10 @@ public class Seat {
 	public void setStudio(Studio studio) {
 		this.studio = studio;
 	}
+	@Override
+	public String toString() {
+		return "Seat [seat_id=" + seat_id + ", seat_row=" + seat_row + ", seat_colum=" + seat_colum + ", seat_status="
+				+ seat_status + ", studio=" + studio + "]";
+	}
 	
 }

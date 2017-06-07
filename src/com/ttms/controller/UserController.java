@@ -134,6 +134,7 @@ public class UserController {
             	   //上传
                    file.transferTo(new File(path));
                    file.transferTo(new File(adpath));
+                   System.out.println(temp);
                    session.setAttribute("u_photoUp", temp);
                 
                }
@@ -141,6 +142,7 @@ public class UserController {
                 
            }
            System.out.println(session.getAttribute("u_photo"));
+           System.out.println(session.getAttribute("u_photoUp"));
           
            
        }

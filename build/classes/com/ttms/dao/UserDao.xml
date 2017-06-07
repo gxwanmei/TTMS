@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.UserDao">
+	<!-- 根据用户的姓名，获取用户的详情 -->
+	<select id="getUserByName" parameterType="string" resultType="com.ttms.model.User">
+		select * from user where username = #{username} 
+	</select>
+	<select id="getAll" parameterType="string" resultType="com.ttms.model.User">
+		select * from user  
+	</select>
+	<select id="getUserByPage" parameterType="com.ttms.common.Page"  resultType="com.ttms.model.User">
+		select * from user order by id limit #{pageNumber},#{pageSize}
+	</select>
+	<select id="getPasswordByName" parameterType="String" resultType="String">
+		select password from user where username = #{username}
+	</select>
+	<update id="updateUserPhoto" parameterType="com.ttms.model.User">
+		update user set u_photo=#{u_photo} where id=#{id}
+	</update>
+</mapper>

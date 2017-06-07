@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.SeatDao">
+	<resultMap type="com.ttms.model.Seat" id="seat">
+		<id property="seat_id" column="seat_id"/>
+		<result property="seat_row" column="seat_row"/>
+		<result property="seat_colum" column="seat_column"/>
+		<result property="seat_status" column="seat_status"/>
+		<association property="studio" javaType="com.ttms.model.Studio">
+			<id property="studio_id" column="studio_id"/>
+			<result property="studio_name" column="studio_name"/>
+			<result property="studio_language" column="studio_language"/>
+			<result property="studio_size" column="studio_size"/>
+			<result property="studio_type" column="studio_type"/>
+		</association>
+	</resultMap>
+	<insert id="insertSeat" parameterType="com.ttms.model.Seat">
+		insert into seat(studio_id,seat_row,seat_column,seat_status)
+		values
+		(#{studio.studio_id},#{seat_row},#{seat_colum},#{seat_status})
+	</insert>
+	<delete id="deleteAllSeatByStudioId" parameterType="com.ttms.model.Studio">
+		delete from seat where studio_id=#{studio_id}
+	</delete>
+	<select id="getAllSeat" parameterType="com.ttms.model.Studio" resultMap="seat">
+		select 
+			s.seat_id,s.seat_row,s.seat_column,s.seat_status,
+			t.studio_id,t.studio_language,t.studio_name,t.studio_size,t.studio_type
+
+		from 
+			seat s
+		LEFT JOIN 
+			studio t
+		ON
+			s.studio_id=t.studio_id
+		WHERE
+			s.studio_id=#{studio_id}
+	</select>
+	<update id="updateSeat" parameterType="com.ttms.model.Seat">
+		update seat set seat_status=#{seat_status} where seat_row=#{seat_row} 
+			and seat_column=#{seat_colum} and studio_id=#{studio.studio_id}
+	</update>
+	<select id="findSeatByStudioId" parameterType="com.ttms.model.Studio" resultType="java.lang.Integer">
+		select count(*) from seat where studio_id=#{studio_id}
+	</select>
+</mapper>

@@ -10,5 +10,8 @@ public interface StudioService {
 	public int InsertStudio(Studio studio);
 	public int deleteStudioById(int id);
 	public int updateStudioById(Studio studio);
-	public List<Studio> Query();
+	public List<Studio> Query(Studio studio);
+	public List<Studio> QueryAll();
+	public List<Studio> getAllStudio(Studio studio);
+	public Studio getStudioById(Studio studio);
 }

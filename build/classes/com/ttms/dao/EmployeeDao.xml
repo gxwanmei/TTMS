@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.EmployeeDao">
+	<insert id="insertEmp" parameterType="com.ttms.model.Employee" useGeneratedKeys="true" keyProperty="emp_id">
+		insert into employee
+			(emp_no,emp_name,emp_tel_num,emp_addr,emp_email)
+			values(#{emp_no},#{emp_name},#{emp_tel_num},#{emp_addr},#{emp_email})
+	</insert>
+	<delete id="deleteByEmpNo" parameterType="String">
+		delete from employee where emp_no = #{empNo}
+	</delete>
+	<update id="updateEmp" parameterType="com.ttms.model.Employee">
+		update employee set emp_no=#{emp_no},emp_name=#{emp_name},emp_tel_num=#{emp_tel_num},
+							emp_addr=#{emp_addr},emp_email=#{emp_email} where emp_id=#{emp_id}
+		
+	</update>
+	<select id="getCount" resultType="java.lang.Integer">
+		select count(*) from employee
+	</select>
+	<select id="getAllByPage" parameterType="com.ttms.common.Page" resultType="com.ttms.model.Employee">
+		select * from employee order by emp_id limit #{Offset},#{pageSize}
+	</select>
+	<select id="getAllEmployee" resultType="com.ttms.model.Employee">
+		select * from employee 
+	</select>
+	<select id="getEmployeeById" resultType="com.ttms.model.Employee">
+		select * from employee where emp_id = #{id}
+	</select>
+</mapper>
