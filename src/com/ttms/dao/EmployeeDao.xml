@@ -10,21 +10,39 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<delete id="deleteByEmpNo" parameterType="String">
 		delete from employee where emp_no = #{empNo}
 	</delete>
+	
 	<update id="updateEmp" parameterType="com.ttms.model.Employee">
 		update employee set emp_no=#{emp_no},emp_name=#{emp_name},emp_tel_num=#{emp_tel_num},
 							emp_addr=#{emp_addr},emp_email=#{emp_email} where emp_id=#{emp_id}
 		
 	</update>
-	<select id="getCount" resultType="java.lang.Integer">
-		select count(*) from employee
+	
+	<select id="searchById" parameterType="com.ttms.model.Employee" resultType="com.ttms.model.Employee">
+		select * from employee where emp_id=#{emp_id} 
 	</select>
-	<select id="getAllByPage" parameterType="com.ttms.common.Page" resultType="com.ttms.model.Employee">
-		select * from employee order by emp_id limit #{Offset},#{pageSize}
+	
+	<select id="getCount" parameterType="com.ttms.model.Employee" resultType="int">
+		select count(emp_no) as AllRecord from employee where emp_no like "%" #{emp_no} "%"
 	</select>
-	<select id="getAllEmployee" resultType="com.ttms.model.Employee">
-		select * from employee 
+	
+	<select id="getAllByPage" parameterType="java.util.Map" resultType="com.ttms.model.Employee">
+		select * from employee where emp_no like "%" #{emp_no} "%" limit #{current},#{pageSize}
 	</select>
-	<select id="getEmployeeById" resultType="com.ttms.model.Employee">
-		select * from employee where emp_id = #{id}
+	
+	<select id="getAll" parameterType="com.ttms.model.Employee" resultType="com.ttms.model.Employee">
+		select * from employee where emp_no like "%" #{emp_name} "%"
 	</select>
+	<!-- 安卓接口 -->
+	 <insert id="insertEmployeeAd"  parameterType="com.ttms.model.Employee" useGeneratedKeys="true" keyProperty="emp_id">
+     	insert into employee
+			(emp_no,emp_name,emp_tel_num,emp_addr,emp_email)
+			values(#{emp_no},#{emp_name},#{emp_tel_num},#{emp_addr},#{emp_email})
+      <selectKey keyProperty="emp_id" resultType="int">
+      	select LAST_INSERT_ID() as emp_id
+      </selectKey>
+    </insert>
+    
+    <delete id="deleteEmployeeAd" parameterType="com.ttms.model.Employee">
+		delete from employee where emp_id = #{emp_id}
+	</delete>
 </mapper>

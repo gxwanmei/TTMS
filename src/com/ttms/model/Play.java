@@ -5,10 +5,11 @@ public class Play {
 	private String play_name;
 	private int play_type;
 	private String play_introduce;
-	private String paly_image;
+	private String play_image;
 	private int play_length;
-	private int play_ticket_price;
-	private int paly_status;
+	private double play_ticket_price;
+	private int play_status;
+	private String play_imgString;
 	public int getPlay_id() {
 		return play_id;
 	}
@@ -33,11 +34,11 @@ public class Play {
 	public void setPlay_introduce(String play_introduce) {
 		this.play_introduce = play_introduce;
 	}
-	public String getPaly_image() {
-		return paly_image;
+	public String getPlay_image() {
+		return play_image;
 	}
-	public void setPaly_image(String paly_image) {
-		this.paly_image = paly_image;
+	public void setPlay_image(String play_image) {
+		this.play_image = play_image;
 	}
 	public int getPlay_length() {
 		return play_length;
@@ -45,18 +46,30 @@ public class Play {
 	public void setPlay_length(int play_length) {
 		this.play_length = play_length;
 	}
-	public int getPlay_ticket_price() {
+	public double getPlay_ticket_price() {
 		return play_ticket_price;
 	}
-	public void setPlay_ticket_price(int play_ticket_price) {
+	public void setPlay_ticket_price(double play_ticket_price) {
 		this.play_ticket_price = play_ticket_price;
 	}
-	public int getPaly_status() {
-		return paly_status;
+	public int getPlay_status() {
+		return play_status;
 	}
-	public void setPaly_status(int paly_status) {
-		this.paly_status = paly_status;
+	public void setPlay_status(int play_status) {
+		this.play_status = play_status;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Play [play_id=" + play_id + ", play_name=" + play_name + ", play_type=" + play_type
+				+ ", play_introduce=" + play_introduce + ", play_image=" + play_image + ", play_length=" + play_length
+				+ ", play_ticket_price=" + play_ticket_price + ", play_status=" + play_status + "]";
+	}
+	public String getPlay_imgString() {
+		return play_imgString;
+	}
+	public void setPlay_imgString(String play_imgString) {
+		this.play_imgString = play_imgString;
+	}
 	
 }

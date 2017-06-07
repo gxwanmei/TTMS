@@ -7,14 +7,14 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	</insert> -->
 	
 	 <insert id="insertPlay"  parameterType="com.ttms.model.Play" useGeneratedKeys="true" keyProperty="play_id">
-     	insert into plays(play_name,play_type,play_introduce,play_image,play_length,play_ticket_price,play_status) values(#{play_name},#{play_type},#{play_introduce},#{play_image},#{play_length},#{play_ticket_price},#{play_status})
+     	insert into play(play_name,play_type,play_introduce,play_image,play_length,play_ticket_price,play_status) values(#{play_name},#{play_type},#{play_introduce},#{play_image},#{play_length},#{play_ticket_price},#{play_status})
       <selectKey keyProperty="play_id" resultType="int">
       	select LAST_INSERT_ID() as play_id
       </selectKey>
     </insert>
 	
 	<delete id="deleteByPlayNo" parameterType="com.ttms.model.Play">
-		delete from plays where play_id = #{play_id}
+		delete from play where play_id = #{play_id}
 	</delete>
 	
 	<update id="updatePlay" parameterType="com.ttms.model.Play">
@@ -26,5 +26,9 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<select id="getAllData" parameterType="com.ttms.model.Play" resultType="com.ttms.model.Play">
 		select * from play where play_name like "%" #{play_name} "%"
+	</select>
+	
+	<select id="searchById" parameterType="com.ttms.model.Play" resultType="com.ttms.model.Play">
+		select * from play where play_id = #{play_id}
 	</select>
 </mapper>

@@ -26,9 +26,9 @@
 			
 			<a href="${pageContext.request.contextPath}/studio/enter.do" class="navHead">演出厅管理</a>
 			<a href="${pageContext.request.contextPath}/schedule/enter.do" class="navHead">演出计划管理</a>
-			<div class="navHead">剧目管理</div>
-			<div class="navHead">演出计划管理</div>
-			<div class="navHead">人员管理</div>
+			<a href="${pageContext.request.contextPath}/play.jsp" class="navHead">剧目管理</a>
+			<a href="${pageContext.request.contextPath}/schedule/enter.do" class="navHead">演出计划管理</a>
+			<a href="${pageContext.request.contextPath}/employee/query.do" class="navHead">人员管理</a>
 		</div>
 		
 		<div id="user" class="head">

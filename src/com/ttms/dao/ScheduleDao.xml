@@ -39,10 +39,10 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<association property="play" javaType="com.ttms.model.Play">
 			<id property="play_id" column="play_id"/>
 			<result property="play_name" column="play_name"/>
-			<result property="paly_image" column="play_image"/>
+			<result property="play_image" column="play_image"/>
 			<result property="play_introduce" column="play_introduce"/>
 			<result property="play_length" column="play_length"/>
-			<result property="paly_status" column="play_status"/>
+			<result property="play_status" column="play_status"/>
 			<result property="play_ticket_price" column="play_ticket_price"/>
 			<result property="play_type" column="play_type"/>
 		</association>

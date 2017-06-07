@@ -79,7 +79,7 @@ public class UserController {
 		}
 		if(session.getAttribute("type").equals("1"))
 		{
-			
+			return "redirect:/employee/query.do";
 		}
 		if(session.getAttribute("type").equals("2"))
 		{

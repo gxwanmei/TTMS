@@ -19,5 +19,4 @@ public interface PlayDao {
 	public Play searchById(Play play)throws SQLException;
 	
 	public List<Play> getAllData(Play play)throws SQLException;
-	
 }

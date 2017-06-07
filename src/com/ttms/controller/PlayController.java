@@ -18,8 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ttms.model.Play;
 import com.ttms.service.PlayService;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 
 @Controller
 @RequestMapping(path="/play")
@@ -27,59 +26,12 @@ public class PlayController {
 	@Resource(name="playService")
 	private PlayService playService;
 	
-	@RequestMapping(path="/insertPlay.do")
-	public String insertPlay(Model model,Play play){
-		play.setPaly_image("asdasd");
-		playService.insertPlay(play);
-		List<Play> plays = new ArrayList<>();
-		plays = playService.getAllData(play);
-		JSONArray array = new JSONArray();
-		for(Play p:plays){
-			JSONObject obj = new JSONObject();
-			obj.put("play_id", p.getPlay_id());
-			obj.put("play_image", p.getPaly_image());
-			obj.put("play_introduce", p.getPlay_introduce());
-			obj.put("play_length", p.getPlay_length());
-			obj.put("play_name", p.getPlay_name());
-			obj.put("play_status", p.getPaly_status());
-			obj.put("play_ticket_price", p.getPlay_ticket_price());
-			obj.put("play_type", p.getPlay_type());
-			array.add(obj);
-		}
-		model.addAttribute("plays",array.toString());
-		System.out.println(array.toString());
-		System.out.println(plays.size());
-		return "project/play";
-	}
 	
 	@RequestMapping(path="/deletePlay.do")
-	@ResponseBody
-	public List<Play> deletePlay(Play play){
+	public String deletePlay(Play play){
 		playService.deleteByPlayNo(play);
-		System.out.println("delete");
-		play.setPlay_name("");
-		List<Play> plays = new ArrayList<>();
-		plays = playService.getAllData(play);
-		for(Play p:plays){
-			System.out.println(p.getPlay_name());
-			System.out.println(p.getPlay_id());
-			System.out.println(p.getPlay_introduce());
-		}
-		return plays;
-	}
-	
-	@RequestMapping(path="/updatePlay.do")
-	public String updatePlay(Play play){
-		play.setPaly_image("asdasd");
-		System.out.println(play.getPlay_name());
-		System.out.println(play.getPlay_id());
-		System.out.println(play.getPlay_introduce());
-		System.out.println(play.getPlay_length());
-		System.out.println(play.getPaly_status());
-		System.out.println(play.getPlay_ticket_price());
-		System.out.println(play.getPlay_type());
-		playService.updatePlay(play);
-		return "project/play";
+
+		return "play";
 	}
 	
 	@RequestMapping(path="/getAllData.do")
@@ -90,6 +42,17 @@ public class PlayController {
 		return plays;
 	}
 	
+	@RequestMapping(path="/searchById.do")
+	public String searchById(Model model,Play play){
+		System.out.println("-------searchById");
+		System.out.println(play.getPlay_id());
+		Play p = new Play();
+		p = playService.searchById(play);
+		System.out.println(p.getPlay_name());
+		model.addAttribute("play", p);
+		return "playInformation";
+	}
+	
 	@RequestMapping(path = "/upload.do")  
     public String upload(Play play,@RequestParam(value = "file", required = false)MultipartFile file,HttpServletRequest request,Model model) {  
 
@@ -98,7 +61,7 @@ public class PlayController {
 		System.out.println(play.getPlay_id());
 		System.out.println(play.getPlay_introduce());
 		System.out.println(play.getPlay_length());
-		System.out.println(play.getPaly_status());
+		System.out.println(play.getPlay_status());
 		System.out.println(play.getPlay_ticket_price());
 		System.out.println(play.getPlay_type());
         String path = request.getSession().getServletContext().getRealPath("upload");  
@@ -121,9 +84,9 @@ public class PlayController {
         System.out.println(realTrace);
         System.out.println(request.getContextPath()+"/upload/"+fileName);
         //model.addAttribute("fileUrl", request.getContextPath()+"/upload/"+fileName);
-        play.setPaly_image("upload/"+fileName);
+        play.setPlay_image("upload/"+fileName);
         playService.insertPlay(play);
-        return "project/play";  
+        return "play";  
     }  
 	
 	@RequestMapping(path = "/uploadUpdate.do")  
@@ -134,7 +97,7 @@ public class PlayController {
 		System.out.println(play.getPlay_id());
 		System.out.println(play.getPlay_introduce());
 		System.out.println(play.getPlay_length());
-		System.out.println(play.getPaly_status());
+		System.out.println(play.getPlay_status());
 		System.out.println(play.getPlay_ticket_price());
 		System.out.println(play.getPlay_type());
         String path = request.getSession().getServletContext().getRealPath("upload");  
@@ -160,8 +123,8 @@ public class PlayController {
         String imgPath = "upload/"+fileName;
         System.out.println(file.toString());
         System.out.println(imgPath);
-        play.setPaly_image(imgPath);
+        play.setPlay_image(imgPath);
         playService.updatePlay(play);
-        return "project/play";  
+        return "play";  
     }  
 }

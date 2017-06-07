@@ -62,8 +62,17 @@ public class PlayServiceImp implements PlayService{
 
 	@Override
 	public Play searchById(Play play) {
-		// TODO Auto-generated method stub
-		return null;
+		Play pl = new Play();
+		try {
+			
+			pl = dao.searchById(play);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return pl;
 	}
 
 	@Override
