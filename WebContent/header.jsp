@@ -23,11 +23,9 @@
 			<h1>影院管理系統</h1>
 		</div>
 		<div id="nav" class="head">
-			<div class="navHead">
 			
-			<a href="${pageContext.request.contextPath}/studio/enter.do">演出厅管理</a>
-			
-			</div>
+			<a href="${pageContext.request.contextPath}/studio/enter.do" class="navHead">演出厅管理</a>
+			<a href="${pageContext.request.contextPath}/schedule/enter.do" class="navHead">演出计划管理</a>
 			<div class="navHead">剧目管理</div>
 			<div class="navHead">演出计划管理</div>
 			<div class="navHead">人员管理</div>

@@ -12,4 +12,7 @@ public interface ScheduleService {
 	public int deleteScheduleById(Schedule schedule);
 	public int updateScheduleById(Schedule schedule);
 	public List<Schedule> getScheduleByDate(Schedule schedule);
+	public List<Schedule> getSchedule();
+	public List<Schedule> findScheduleById(Schedule schedule);
+	public List<Schedule> getScheduleDate();
 }

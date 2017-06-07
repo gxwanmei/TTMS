@@ -74,7 +74,6 @@ public class ScheduleServiceImp implements ScheduleService{
 		int count=0;
 		try {
 			count=dao.updateScheduleById(schedule);
-			System.out.println(count);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,6 +86,49 @@ public class ScheduleServiceImp implements ScheduleService{
 		List<Schedule> list = null;
 		try {
 			list= dao.getScheduleByDate(schedule);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Schedule> getSchedule() {
+		List<Schedule> list = null;
+		try {
+			list= dao.getSchedule();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Schedule> findScheduleById(Schedule schedule) {
+		List<Schedule> list = null;
+		try {
+			list= dao.findScheduleById(schedule);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Schedule> getScheduleDate() {
+		// TODO Auto-generated method stub
+		List<Schedule> list = null;
+		try {
+			list= dao.getScheduleDate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,6 +7,14 @@ public class Schedule {
 	private Play play;
 	private String sched_time;
 	private float sched_ticket_price;
+	private String sched_date;
+	
+	public String getSched_date() {
+		return sched_date;
+	}
+	public void setSched_date(String sched_date) {
+		this.sched_date = sched_date;
+	}
 	public int getSched_id() {
 		return sched_id;
 	}
