@@ -13,4 +13,7 @@ public interface UserService {
 	public List<User> getUserByPage(Page page);
 	public String getPasswordByName(String username);
 	public int updateUserPhoto(User user);
+	public int updateUser(User user);
+	public boolean stringImage(String imgStr, String imgFilePath);
+	public int updatePassword(User user);
 }

@@ -80,6 +80,7 @@ public class adPlayController {
 	public String deletePlay(Model model,Play play){
 		System.out.println("--------->delete");
 		int result = playService.deleteByPlayNo(play);
+		
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
 		

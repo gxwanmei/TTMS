@@ -3,6 +3,7 @@ package com.ttms.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ttms.model.Schedule;
 import com.ttms.model.Studio;
 
 public interface StudioDao {
@@ -20,4 +21,6 @@ public interface StudioDao {
 	public List<Studio> getAllStudio(Studio studio)throws SQLException;
 	//根据id查找演出厅
 	public Studio getStudioById(Studio studio) throws SQLException;
+	
+	
 }

@@ -5,15 +5,102 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>剧目管理</title>
+<title>演出计划管理</title>
 <script src="/TTMS_v1.0/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.ajaxSetup({
 			  async: false
 			  });
-		$.post("/TTMS_v1.0/schedule/gdate.do",{},function(data){
-			alert(data);
+		$.post("/TTMS_v1.0/schedule/enter.do",{},function(data){
+
+			var date = new Date();
+			var today1 = date.toLocaleDateString();
+			today1 = today1.replace(/\//g, "-");
+			var arr1 = parseInt(today1.split("-")[1]);
+			var arr = parseInt(today1.split("-")[2]);
+			var today = "";
+			var tomorrow="";
+			var theDayAfterTomorrow = "";
+			var tomorrow1  = arr+1;
+			var theDayAfterTomorrow1 = tomorrow1+1;
+
+			if(arr1 < 10){
+				if(arr < 10){
+					today = today1.split("-")[0]+"-0"+today1.split("-")[1]+"-0"+today1.split("-")[2];
+					console.log(today);
+				}
+				if(tomorrow1 < 10){
+				    tomorrow = today1.split("-")[0]+"-0"+today1.split("-")[1]+"-0"+tomorrow1;
+				}
+				else{
+					 tomorrow = today1.split("-")[0]+"-0"+today1.split("-")[1]+"-"+tomorrow1;
+				}
+				if(theDayAfterTomorrow1 < 10){
+				    theDayAfterTomorrow = today1.split("-")[0]+"-0"+today1.split("-")[1]+"-0"+theDayAfterTomorrow1;
+				}
+				else{
+				    theDayAfterTomorrow = today1.split("-")[0]+"-0"+today1.split("-")[1]+"-"+theDayAfterTomorrow1;
+				}
+			}
+			else if(arr < 10){
+				today = today1.split("-")[0]+"-"+today1.split("-")[1]+"-0"+today1.split("-")[2];
+			}
+			else if(tomorrow1 < 10){
+				 tomorrow = today1.split("-")[0]+"-"+today1.split("-")[1]+"-0"+tomorrow1;
+			}
+			else if(tomorrow1 >= 10){
+				 tomorrow = today1.split("-")[0]+"-"+today1.split("-")[1]+"-"+tomorrow1;
+			}
+			else if(theDayAfterTomorrow1 < 10){
+			    theDayAfterTomorrow = today1.split("-")[0]+"-"+today1.split("-")[1]+"-0"+theDayAfterTomorrow1;
+			}	
+			else if(theDayAfterTomorrow1 >= 10){
+			    theDayAfterTomorrow = today1.split("-")[0]+"-"+today1.split("-")[1]+"-"+theDayAfterTomorrow1;
+			}
+			
+			var str = "";
+			$.each(data,function(index,val){
+				var s = "<tr><td>"+val.sched_id+"</td>"+
+				"<td>"+val.play.play_name+"</td>"+
+				"<td>"+val.studio.studio_name+"</td>"+
+				"<td>"+val.sched_time+"</td>"+
+				"<td>"+val.sched_date+"</td>"+
+				"<td>"+val.sched_ticket_price+"</td>"+
+				"<td><a href='#'> <img src='/TTMS_v1.0/img/modify.png' data-toggle='modal' data-target='#modifyPerformancePlan' sched_id='"+val.sched_id+"' class='modify' /></a>"+
+				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+				"<a href='/TTMS_v1.0/schedule/delete.do?sched_id="+val.sched_id+"'><img id='allScheduleDelete' src='/TTMS_v1.0/img/delete.png' class='delete'/></a></td></tr>";
+				str+=s;
+			})
+			$("#allScheduleTableBody").html(str);
+			
+			var strToday = "";
+			var strTomorrow = "";
+			var strTheDayAfterTomorrow = "";
+			$.each(data,function(index,val){
+				var x = "<tr><td>"+val.sched_id+"</td>"+
+				"<td>"+val.play.play_name+"</td>"+
+				"<td>"+val.studio.studio_name+"</td>"+
+				"<td>"+val.sched_time+"</td>"+
+				"<td>"+val.sched_date+"</td>"+
+				"<td>"+val.sched_ticket_price+"</td>"+
+				"<td><a href='#'> <img src='/TTMS_v1.0/img/modify.png' data-toggle='modal' data-target='#modifyPerformancePlan' sched_id='"+val.sched_id+"' class='modify' /></a>"+
+				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+				"<a href='/TTMS_v1.0/schedule/delete.do?sched_id="+val.sched_id+"'><img id='allScheduleDelete' src='/TTMS_v1.0/img/delete.png' class='delete'/></a></td></tr>";
+				if(val.sched_time === today){
+					strToday+=x;
+				}
+				if(val.sched_time === tomorrow){
+					strTomorrow+=x;
+				}
+				if(val.sched_time === theDayAfterTomorrow){
+					strTheDayAfterTomorrow+=x;
+				}
+			})
+			$("#todayTableBody").html(strToday);
+			$("#tomorrowTableBody").html(strTomorrow);
+			$("#theDayAfterTomorrowTableBody").html(strTheDayAfterTomorrow);
+			
 		})
 		$.post("/TTMS_v1.0/schedule/plname.do",{},function(data){
 			var playStr = "";
@@ -100,23 +187,21 @@
 </script>
 </head>
 <body>
-	<button id="get">get</button>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="contanier">
 		<div id="information">
 			<ul id="myTab" class="nav nav-tabs" style="font-size: 20px">
-				<li class="active"><a href="#today" data-toggle="tab">今天</a></li>
+			<li class="active"><a href="#allSchedule" data-toggle="tab">所有</a></li>
+				<li><a href="#today" data-toggle="tab">今天</a></li>
 				<li><a href="#tomorrow" data-toggle="tab">明天</a></li>
-				<li><a href="#one" data-toggle="tab">2017.6.01</a></li>
-				<li><a href="#two" data-toggle="tab">2017.6.02</a></li>
-				<li><a href="#three" data-toggle="tab">2017.6.03</a></li>
+				<li><a href="#theDayAfterTomorrow" data-toggle="tab">后天</a></li>
 				<li><div style="margin-left: 400px">
 						<button type="button" class="btn btn-info" data-toggle="modal"
 							data-target="#addPerformancePlan">添加演出计划</button>
 					</div></li>
 			</ul>
-			<div id="today" class="tab-content">
-				<div class="tab-pane fade in active" id="today">
+			<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="allSchedule">
 					<div class="table-responsive">
 						<table class="table table-bordered">
 							<thead>
@@ -130,23 +215,28 @@
 									<th>操作</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach items="${scheds}" var="sc" varStatus="id">
-									<tr>
-										<td>${id.index+1}</td>
-										<td>${sc.play.play_name}</td>
-										<td>${sc.studio.studio_name}</td>
-										<td>${sc.sched_time}</td>
-										<td>${sc.sched_date}</td>
-										<td>${sc.sched_ticket_price}</td>
-										<td><img src="/TTMS_v1.0/img/modify.png"
-												data-toggle="modal" data-target="#modifyPerformancePlan" sched_id=${sc.sched_id} class="modify"/>
-										 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
-											href="/TTMS_v1.0/schedule/delete.do?sched_id=${sc.sched_id}"
-											class="delete"><img src="/TTMS_v1.0/img/delete.png"
-												onclick="deleteInformation()" /> </a></td>
-									</tr>
-								</c:forEach>
+							<tbody id="allScheduleTableBody">
+							
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="today">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>演出计划编号</th>
+									<th>剧目名称</th>
+									<th>所在演出厅</th>
+									<th>放映日期</th>
+									<th>放映时间</th>
+									<th>销售价格</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="todayTableBody">
+							
 							</tbody>
 						</table>
 					</div>
@@ -160,30 +250,17 @@
 									<th>剧目名称</th>
 									<th>所在演出厅</th>
 									<th>放映日期</th>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th></th>
+									<th>放映时间</th>
+									<th>销售价格</th>
+									<th>操作</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>1号</td>
-									<td>小时代</td>
-									<td>王波厅</td>
-									<td>2016.9.20</td>
-									<td>9:00</td>
-									<td>11:00</td>
-									<td><a href="#"> <img src="/TTMS_v1.0/img/modify.png"
-											data-toggle="modal" data-target="#modifyPerformancePlan" />
-									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="/TTMS_v1.0/img/delete.png" onclick="deleteInformation()" />
-									</a></td>
-								</tr>
+							<tbody id="tomorrowTableBody">
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="one">
+				<div class="tab-pane fade" id="theDayAfterTomorrow">
 					<div class="table-responsive">
 						<table class="table table-bordered">
 							<thead>
@@ -192,89 +269,17 @@
 									<th>剧目名称</th>
 									<th>所在演出厅</th>
 									<th>放映日期</th>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th></th>
+									<th>放映时间</th>
+									<th>销售价格</th>
+									<th>操作</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>1号</td>
-									<td>小时代</td>
-									<td>王波厅</td>
-									<td>2016.9.20</td>
-									<td>9:00</td>
-									<td>11:00</td>
-									<td><a href="#"> <img src="../img/modify.png"
-											data-toggle="modal" data-target="#modifyPerformancePlan" />
-									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="../img/delete.png" onclick="deleteInformation()" /> </a></td>
-								</tr>
+							<tbody id="theDayAfterTomorrowTableBody">
+								
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="two">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>演出计划编号</th>
-									<th>剧目名称</th>
-									<th>所在演出厅</th>
-									<th>放映日期</th>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1号</td>
-									<td>小时代</td>
-									<td>王波厅</td>
-									<td>2016.9.20</td>
-									<td>9:00</td>
-									<td>11:00</td>
-									<td><a href="#"> <img src="../img/modify.png"
-											data-toggle="modal" data-target="#modifyPerformancePlan" />
-									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="../img/delete.png" onclick="deleteInformation()" /> </a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="three">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>演出计划编号</th>
-									<th>剧目名称</th>
-									<th>所在演出厅</th>
-									<th>放映日期</th>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1号</td>
-									<td>小时代</td>
-									<td>王波厅</td>
-									<td>2016.9.20</td>
-									<td>9:00</td>
-									<td>11:00</td>
-									<td><a href="#"> <img src="../img/modify.png"
-											data-toggle="modal" data-target="#modifyPerformancePlan" />
-									</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"><img
-											src="../img/delete.png" onclick="deleteInformation()" /> </a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -341,11 +346,11 @@
 						</div>
 						<div class="addInput">
 							<span>时间:</span><input type="text" class="input" id="date"
-								placeholder="请输入时间" onblur="checkStartTime()">
+								placeholder="请输入时间" >
 						</div>
 						<div class="addInput">
 							<span>票价:</span><input type="text" class="input" id="price"
-								placeholder="请输入票价" onblur="checkEndTime()">
+								placeholder="请输入票价" >
 						</div>
 					</div>
 					<div class="modal-footer">

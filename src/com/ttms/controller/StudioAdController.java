@@ -30,7 +30,47 @@ public class StudioAdController {
 	@ResponseBody
 	public String insert(Studio studio)
 	{
+		seatService.deleteAllSeatByStudioId(studio);
 		studioService.InsertStudio(studio);
+		if(studio.getStudio_size().equals("big"))
+		{
+			for(int i=1;i<8;i++)
+				for(int j=1;j<11;j++)
+				{
+					Seat seat = new Seat();
+					seat.setSeat_row(String.valueOf(i));
+					seat.setSeat_colum(String.valueOf(j));
+					seat.setSeat_status(String.valueOf(0));
+					seat.setStudio(studio);
+					seatService.insertSeat(seat);
+				}
+		}
+		else if(studio.getStudio_size().equals("default"))
+		{
+			for(int i=1;i<7;i++)
+				for(int j=1;j<10;j++)
+				{
+					Seat seat = new Seat();
+					seat.setSeat_row(String.valueOf(i));
+					seat.setSeat_colum(String.valueOf(j));
+					seat.setSeat_status(String.valueOf(0));
+					seat.setStudio(studio);
+					seatService.insertSeat(seat);
+				}
+		}
+		else if(studio.getStudio_size().equals("small"))
+		{
+			for(int i=1;i<6;i++)
+				for(int j=1;j<9;j++)
+				{
+					Seat seat = new Seat();
+					seat.setSeat_row(String.valueOf(i));
+					seat.setSeat_colum(String.valueOf(j));
+					seat.setSeat_status(String.valueOf(0));
+					seat.setStudio(studio);
+					seatService.insertSeat(seat);
+				}
+		}
 		HashMap<String, Integer > map = new HashMap<>();
 		map.put("studio_id", studio.getStudio_id());
 		return JSONArray.fromObject(map).toString();
@@ -39,8 +79,10 @@ public class StudioAdController {
 	@ResponseBody
 	public String delete(Studio studio)
 	{
+		seatService.deleteAllSeatByStudioId(studio);
 		HashMap<String, Integer > map = new HashMap<>();
 		map.put("result",studioService.deleteStudioById(studio.getStudio_id()));
+		
 		return JSONArray.fromObject(map).toString();
 	}
 	@RequestMapping(path="/updateSeat.do")
@@ -80,7 +122,6 @@ public class StudioAdController {
 			return count;
 		}
 		seatService.deleteAllSeatByStudioId(studio);
-		System.out.println(studio.getStudio_size());
 		if(studio.getStudio_size().equals("big"))
 		{
 			for(int i=1;i<8;i++)

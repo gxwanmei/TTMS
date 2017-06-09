@@ -18,4 +18,10 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<update id="updateUserPhoto" parameterType="com.ttms.model.User">
 		update user set u_photo=#{u_photo} where id=#{id}
 	</update>
+	<update id="updateUser" parameterType="com.ttms.model.User">
+		update user set password=#{password},u_photo=#{u_photo} where username = #{username}
+	</update>
+	<update id="updatePassword" parameterType="com.ttms.model.User">
+		update user set password=#{password} where username=#{username}
+	</update>
 </mapper>

@@ -19,4 +19,7 @@ public interface PlayDao {
 	public Play searchById(Play play)throws SQLException;
 	
 	public List<Play> getAllData(Play play)throws SQLException;
+	
+	//根据类型找到所有的上映剧目
+	public List<Play> findPlayByType(Play play) throws SQLException;
 }

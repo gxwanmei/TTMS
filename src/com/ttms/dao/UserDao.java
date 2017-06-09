@@ -11,4 +11,6 @@ public interface UserDao {
 	public List<User> getUserByPage(Page page) throws SQLException;
 	public String getPasswordByName(String username) throws SQLException;
 	public int updateUserPhoto(User user) throws SQLException;
+	public int updateUser(User user) throws SQLException;
+	public int updatePassword(User user) throws SQLException;
 }

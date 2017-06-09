@@ -46,6 +46,11 @@
 								<span>剧目类型:</span> <select name="play_type">
 									<option value="1">爱情片</option>
 									<option value="2">恐怖片</option>
+									<option value="3">动漫剧</option>
+									<option value="4">生活剧</option>
+									<option value="5">古装剧</option>
+									<option value="6">战争片</option>
+									<option value="7">科幻片</option>
 								</select>
 							</div>
 							<div class="addInput">

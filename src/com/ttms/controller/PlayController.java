@@ -50,6 +50,38 @@ public class PlayController {
 		p = playService.searchById(play);
 		System.out.println(p.getPlay_name());
 		model.addAttribute("play", p);
+		String status = "未上映";
+		String type = "爱情片";
+		
+		if(p.getPlay_status()==0){
+			status = "未上映";
+		}else{
+			status = "已上映";
+		}
+		
+		if(p.getPlay_type()==1){
+			type = "爱情片";
+		}
+		else if(p.getPlay_type()==2){
+			type = "恐怖片";
+		}
+		else if(p.getPlay_type()==3){
+			type = "动漫剧";
+		}
+		else if(p.getPlay_type()==4){
+			type = "生活剧";
+		}
+		else if(p.getPlay_type()==5){
+			type ="古装剧";
+		}
+		else if(p.getPlay_type()==6){
+			type = "战争片";
+		}
+		else if(p.getPlay_type()==7){
+			type = "科幻片";
+		}
+		model.addAttribute("playtype",type);
+		model.addAttribute("playstatus", status);
 		return "playInformation";
 	}
 	
@@ -64,7 +96,8 @@ public class PlayController {
 		System.out.println(play.getPlay_status());
 		System.out.println(play.getPlay_ticket_price());
 		System.out.println(play.getPlay_type());
-        String path = request.getSession().getServletContext().getRealPath("upload");  
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        path=path+"\\";
         String fileName = file.getOriginalFilename();  
 //        String fileName = new Date().getTime()+".jpg";  
         System.out.println(path);  

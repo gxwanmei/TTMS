@@ -1,0 +1,53 @@
+table img {
+	margin: 25px;
+}
+
+.img-wrap {
+	display: inline-block;
+	position: relative;
+	height: 40px;
+	width: 80px;
+}
+
+.img-wrap .img {
+	display: block;
+}
+
+.img-wrap .img-close-icon {
+	display: none;
+}
+
+.img-wrap:hover .img-close-icon {
+	display: none;
+	position: absolute;
+	right: -0px;
+	top: -0px;
+	display: block;
+	background: url(/TTMS_v1.0/img/shanchu.jpg);
+	width: 16px;
+	height: 16px;
+}
+
+.price {
+	margin-top: 30px;
+	margin-left: 60px;
+}
+
+.yes {
+	margin-top: 30px;
+}
+
+.priceAndyes {
+	width: 250px;
+	height: 170px;
+}
+.img-wrap{
+	margin-top:10px;
+}
+.imgs{
+	margin-bottom:30px;
+}
+#imgDiv{
+	min-height:160px;
+	border: 1px solid lightblue;
+}

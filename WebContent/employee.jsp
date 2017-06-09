@@ -58,11 +58,10 @@
 								src="../img/delete.png" /></a>
 							</tr>
 						</c:forEach>
-				<!-- ../employee/delete.do?currentPage=${currentPage}&emp_no=${emp.emp_no} -->
 				</tbody>
 			</table>
 		</div>
-		<form action="../employee/insert.do" method="post" id="addEmployeeForm">
+		<form action="/TTMS_V1.0/employee/insert.do" method="post" id="addEmployeeForm">
 			<div class="modal fade" id="addEmployee" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -119,15 +118,10 @@
 			   </div>
 		</form>
 		<div>
-									<a href="../employee/query.do?currentPage=1&emp_no=${emp_no}">首页</a> &nbsp;
-									<a href="../employee/query.do?currentPage=${beforePage}&emp_no=${emp_no}">上一页</a>&nbsp;
-									<a href="../employee/query.do?currentPage=${nextPage}&emp_no=${emp_no}">下一页</a>&nbsp;
-									<a href="../employee/query.do?currentPage=${allCountPage}&emp_no=${emp_no}">尾页</a>&nbsp;&nbsp;&nbsp;
-									编号:${emp_no}&nbsp;
-									当前是:${currentPage}页&nbsp;
-									总页数：${allCountPage}&nbsp;
-									上一页:${beforePage}&nbsp;
-									下一页：${nextPage}&nbsp;
+									<a href="/TTMS_v1.0/employee/query.do?currentPage=1&emp_no=${emp_no}">首页</a> &nbsp;
+									<a href="/TTMS_v1.0/employee/query.do?currentPage=${beforePage}&emp_no=${emp_no}">上一页</a>&nbsp;
+									<a href="/TTMS_v1.0/employee/query.do?currentPage=${nextPage}&emp_no=${emp_no}">下一页</a>&nbsp;
+									<a href="/TTMS_v1.0/employee/query.do?currentPage=${allCountPage}&emp_no=${emp_no}">尾页</a>&nbsp;&nbsp;&nbsp;
 	 </div>
 	</div>
 </body>

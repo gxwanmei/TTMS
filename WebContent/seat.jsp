@@ -47,10 +47,10 @@
 						var jRow = j+1;
 						var kColum = k+1;
 						if(data[x].seat_status === "1"){
-							tr+="<td><img src='/TTMS_v1.0/img/seat2.jpg' style='margin:25px' row='"+jRow+"' colum='"+kColum+"' status='1' class='seatImage'></td>";
+							tr+="<td><img src='/TTMS_v1.0/img/seat2.jpg' style='margin:20px' row='"+jRow+"' colum='"+kColum+"' status='1' class='seatImage'></td>";
 						}
 						else{
-							tr+="<td><img src='/TTMS_v1.0/img/seat1.jpg' style='margin:25px' row='"+jRow+"' colum='"+kColum+"' status='0' class='seatImage'></td>";
+							tr+="<td><img src='/TTMS_v1.0/img/seat1.jpg' style='margin:20px' row='"+jRow+"' colum='"+kColum+"' status='0' class='seatImage'></td>";
 						}
 						x++;	
 					}
@@ -79,13 +79,6 @@
 					$.post("/TTMS_v1.0/studio/updateSeat.do",{"seat_row":seatRow,"seat_colum":seatColum,"seat_status":seatStatus,"studio.studio_id":studio_id},function(data){
 						if(data==1)
 						{	
-							//if(seatStatus === "0"){
-								//var str = "<img src='/TTMS_v1.0/img/seat1.jpg' style='margin:25px' row='"+seatRow+"' colum='"+seatColum+"' status='"+seatStatus+"' class='seatImage'>";
-								//imageThis.parent().html(str);
-							//}else{
-								//var str = "<img src='/TTMS_v1.0/img/seat2.jpg' style='margin:25px' row='"+seatRow+"' colum='"+seatColum+"' status='"+seatStatus+"' class='seatImage'>";
-								//imageThis.parent().html(str);
-							//}
 							 location.reload();
 						}
 						else
@@ -109,12 +102,11 @@
 				src="/TTMS_v1.0/img/seat2.jpg"><span>不可选座位</span>
 		</div>
 		<div class="col-lg-12">
-			<div class="seat col-xs-7" align="right">
+			<div class="seat col-xs-7">
 				<table id = "displaySeatsTable">
-					
 						<c:forEach items="${seats}" var="seat" varStatus="x">
 							<tr>
-								<td><img src="/TTMS_v1.0/img/seat1.jpg" style="margin:25px" onClick=""></td>
+								<td><img src="/TTMS_v1.0/img/seat1.jpg" style="margin:20px" onClick=""></td>
 							</tr>
 						</c:forEach>
 				</table>

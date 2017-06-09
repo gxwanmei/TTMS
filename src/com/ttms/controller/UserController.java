@@ -23,6 +23,8 @@ import com.ttms.common.MD5Util;
 import com.ttms.model.User;
 import com.ttms.service.UserService;
 
+import net.sf.json.JSONObject;
+
 
 
 @Controller
@@ -75,7 +77,7 @@ public class UserController {
 		}
 		if(session.getAttribute("type").equals("0"))
 		{
-			
+			return "redirect:/admin.jsp";
 		}
 		if(session.getAttribute("type").equals("1"))
 		{
@@ -83,7 +85,7 @@ public class UserController {
 		}
 		if(session.getAttribute("type").equals("2"))
 		{
-			
+			return "redirect:/saleIndex.jsp";
 		}
 		return "redirect:/employee.jsp";
 	}
@@ -148,5 +150,18 @@ public class UserController {
        }
      
        return "redirect:/employee.jsp";
+	}
+	
+	@RequestMapping(path="/updatePassword.do")
+	@ResponseBody
+	public String updatePassword(HttpSession session,User user,Model model)
+	{
+		System.out.println("=======改密码");
+		int result = 0;
+		user.setPassword(MD5Util.string2MD5(user.getPassword()));
+		result = userService.updatePassword(user);
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		return obj.toString();
 	}
 }

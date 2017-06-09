@@ -54,4 +54,12 @@ public interface ScheduleDao {
 	 * 得到所有演出计划的日期
 	 */
 	public List<Schedule> getScheduleDate() throws SQLException;
+	/**
+	 * 根据演出计划id查找stuidio的id
+	 */
+	public int getStuidioIdById(Schedule schedule) throws SQLException;
+	/**
+	 * 根据剧目id查找其对应的演出计划
+	 */
+	public List<Schedule> getScheduleByPlayId(Schedule schedule) throws SQLException ;
 }

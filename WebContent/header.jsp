@@ -13,6 +13,33 @@
 <link rel="stylesheet" href="/TTMS_v1.0/css/header.css">
 <link rel="stylesheet" href="/TTMS_v1.0/css/common.css">
 <title></title>
+<script type="text/javascript">
+	$(function(){
+		$("#userName").click(function(){
+			var userName = $(this).text();
+			$("#getUserName").html(userName);
+			
+		});
+		$("#modifyUserPasswordButton").click(function(){
+			var getUserPasswordAgain = $("#getUserPasswordAgain").val();
+			var getUserPassword = $("#getUserPassword").val();
+			var userName = document.getElementById('getUserName').innerText;
+			if(getUserPasswordAgain === getUserPassword){
+				
+				url="/TTMS_v1.0/user/updatePassword.do";
+				args={"username":userName,"password":getUserPassword};
+				$.post(url,args,function(data){
+					/* alert(data); */
+				});
+				alert("修改密码成功！");
+			}
+			else{
+				alert("两次密码输入不一致");
+			}
+		})
+	})
+</script>
+
 </head>
 <body>
 	<div id="head">
@@ -25,9 +52,8 @@
 		<div id="nav" class="head">
 			
 			<a href="${pageContext.request.contextPath}/studio/enter.do" class="navHead">演出厅管理</a>
-			<a href="${pageContext.request.contextPath}/schedule/enter.do" class="navHead">演出计划管理</a>
+			<a href="${pageContext.request.contextPath}/performancePlan.jsp" class="navHead">演出计划管理</a>
 			<a href="${pageContext.request.contextPath}/play.jsp" class="navHead">剧目管理</a>
-			<a href="${pageContext.request.contextPath}/schedule/enter.do" class="navHead">演出计划管理</a>
 			<a href="${pageContext.request.contextPath}/employee/query.do" class="navHead">人员管理</a>
 		</div>
 		
@@ -42,9 +68,8 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<div class="headUser">
-				
-				<h5>${name}</h5>
+			<div class="headUser">	
+				<a href="#" data-toggle="modal" data-target="#modifyPassword" id="userName">${name}</a>
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			<div class="headUser">
@@ -68,6 +93,38 @@
 							<input type="submit" class="btn btn-danger"
 								value="提交">
 							
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modifyPassword" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title" id="headModalLabel">修改密码</h4>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body" align="center">
+					<div>
+						<span>用户名：</span><input type="text" name="text" class="input" value="${name}" id="getUserName"/>
+					</div>
+					<br/>
+					<div>
+					<span>新密码：</span><input type="password" name="password" class="input" id="getUserPassword" placeholder="请输入密码">
+					</div>
+					<br/>
+					<div>
+						<span>再次输入：</span><input type="password" name="password" class="input" id="getUserPasswordAgain" placeholder="请再次输入密码">
+					</div>	
+					</div>
+					<div class="modal-footer">
+						<div align="center">
+							<input type="submit" class="btn btn-danger"
+							 id="modifyUserPasswordButton" value="提交">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">取消</button>
 						</div>

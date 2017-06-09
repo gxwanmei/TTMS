@@ -64,7 +64,7 @@
 		<div>
 			<div id="search" class="contanierHead">
 				<input type="text" class="input"  placeholder="请输入演出厅名称" id="query_name" /> <input
-					type="button" value="查询" class="input" id="query"/>
+					type="button"  value="查询" class="input" id="query"/>
 			</div>
 			<div class="contanierHead" id="add">
 				<button type="button" class="btn btn-info" data-toggle="modal"

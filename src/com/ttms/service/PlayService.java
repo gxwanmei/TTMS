@@ -12,4 +12,6 @@ public interface PlayService {
 	public int getCount(Play play);					//查--总数
 	public List<Play> getAllData(Play play);	//查--总数据
 	public boolean stringImage(String imgStr, String imgFilePath);
+	//根据类型查找所有的上映剧目
+	public List<Play> findPlayByType(Play play);
 }

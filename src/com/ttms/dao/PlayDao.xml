@@ -31,4 +31,7 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<select id="searchById" parameterType="com.ttms.model.Play" resultType="com.ttms.model.Play">
 		select * from play where play_id = #{play_id}
 	</select>
+	<select id="findPlayByType" parameterType="com.ttms.model.Play" resultType="com.ttms.model.Play">
+		select * from play where play_status=#{play_status}
+	</select>
 </mapper>

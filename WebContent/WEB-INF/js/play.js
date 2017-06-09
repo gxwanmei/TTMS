@@ -49,10 +49,32 @@ function getDataByName() {
 		var str = "";
 		$.each(data,function(index,val){
 			var type = "喜剧";
+			var status = "未上映";
+			if(val.play_status==0){
+				status = "未上映";
+			}else{
+				status = "已上映";
+			}
+			
 			if(val.play_type==1){
 				type = "爱情片";
 			}else if(val.play_type==2){
 				type = "恐怖片";
+			}
+			else if(val.play_type==3){
+				type = "动漫剧";
+			}
+			else if(val.play_type==4){
+				type = "生活剧";
+			}
+			else if(val.play_type==5){
+				type = "古装剧";
+			}
+			else if(val.play_type==6){
+				type = "战争片";
+			}
+			else if(val.play_type==7){
+				type = "科幻片";
 			}
 			
 			str += "<div class='show'><img src='/TTMS_v1.0/"+val.play_image+"' class='picture' data-toggle='modal' data-target='modifyPlay' />" +
@@ -60,8 +82,8 @@ function getDataByName() {
 			"<p>名称:"+val.play_name+"</p>" +
 			"<p>类型:"+type+"</p>" +
 			"<p>时长:"+val.play_length+"分钟</p>" +
-			"<p>导演：哈哈</p>" +
-			"<p>主演：哈哈</p>" +
+			"<p>状态:"+status+"</p>" +
+			"<p>票价:"+val.play_ticket_price+"元</p>" +
 			"<input style='display:none' value='"+val.play_id+"'/>" +
 			"</div></a><div style='position:absolute'><button class='btn btn-danger' onclick='deletePlay("+val+")'>删除</button>"+
 			"</div></div>";
@@ -79,10 +101,32 @@ function getAllData() {
 		var str = "";
 		$.each(data,function(index,val){
 			var type = "喜剧";
+			var status = "未上映";
+			if(val.play_status==0){
+				status = "未上映";
+			}else{
+				status = "已上映";
+			}
+			
 			if(val.play_type==1){
 				type = "爱情片";
 			}else if(val.play_type==2){
 				type = "恐怖片";
+			}
+			else if(val.play_type==3){
+				type = "动漫剧";
+			}
+			else if(val.play_type==4){
+				type = "生活剧";
+			}
+			else if(val.play_type==5){
+				type = "古装剧";
+			}
+			else if(val.play_type==6){
+				type = "战争片";
+			}
+			else if(val.play_type==7){
+				type = "科幻片";
 			}
 			str += "<div class='show'>" +
 			"<img src='/TTMS_v1.0/"+val.play_image+"' class='picture' data-toggle='modal' data-target='modifyPlay' />" +
@@ -90,8 +134,8 @@ function getAllData() {
 			"<p>名称:"+val.play_name+"</p>" +
 			"<p>类型:"+type+"</p>" +
 			"<p>时长:"+val.play_length+"分钟</p>" +
-			"<p>导演：哈哈</p>" +
-			"<p>主演：哈哈</p>" +
+			"<p>状态:"+status+"</p>" +
+			"<p>票价:"+val.play_ticket_price+"元</p>" +
 			"<input style='display:none' value='"+val.play_id+"'/>" +
 			"</div></a><div style='position:absolute'>" +
 			"<button class='btn btn-danger' onclick='deletePlay("+val.play_id+")'>删除</button>"+

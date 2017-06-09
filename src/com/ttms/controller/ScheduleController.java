@@ -1,9 +1,11 @@
 package com.ttms.controller;
 
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ttms.model.Play;
 import com.ttms.model.Schedule;
+import com.ttms.model.Seat;
 import com.ttms.model.Studio;
+import com.ttms.model.Ticket;
 import com.ttms.service.PlayService;
 import com.ttms.service.ScheduleService;
 import com.ttms.service.StudioService;
+import com.ttms.service.TicketService;
 
 @Controller
 @RequestMapping(path="/schedule")
@@ -26,11 +31,33 @@ public class ScheduleController {
 	private StudioService studioService;
 	@Resource(name="playService")
 	private PlayService playService;
+	@Resource(name="ticketService")
+	private TicketService ticketService;
 	@RequestMapping(path="/insert.do")
 	@ResponseBody
 	public int insertSched(Schedule schedule)
 	{
 		int count=scheduleService.InsertSched(schedule);
+		
+		List<Studio> list=studioService.Query(schedule.getStudio());
+		Iterator<Studio> it=list.iterator();
+		List<Seat> seats=it.next().getSeats();
+		for(Seat seat:seats)
+		{
+			Ticket ticket = new Ticket();
+			ticket.setSchedule(schedule);
+			ticket.setTicket_price(schedule.getSched_ticket_price());
+			ticket.setSeat(seat);
+			if(seat.getSeat_status().equals("0"))
+			{
+				ticket.setTicket_status(0);
+			}
+			else
+			{
+				ticket.setTicket_status(1);
+			}
+			ticketService.insertTicket(ticket);
+		}
 		return count;
 	}
 	@RequestMapping(path="/get.do")
@@ -58,19 +85,48 @@ public class ScheduleController {
 		{
 			return null;
 		}
+		Ticket ticket = new Ticket();
+		ticket.setSchedule(schedule);
+		ticketService.deleteTicketById(ticket);
 		scheduleService.deleteScheduleById(schedule);
-		return "redirect:/schedule/enter.do";
+		return "redirect:/performancePlan.jsp";
 	}
 	@RequestMapping(path="/update.do")
 	@ResponseBody
 	public int updateById(Schedule schedule)
 	{
-		return scheduleService.updateScheduleById(schedule);
+		Ticket ticket1 = new Ticket();
+		ticket1.setSchedule(schedule);
+		ticketService.deleteTicketById(ticket1);
+		int count=scheduleService.updateScheduleById(schedule);
+		
+		List<Studio> list=studioService.Query(schedule.getStudio());
+		Iterator<Studio> it=list.iterator();
+		List<Seat> seats=it.next().getSeats();
+		for(Seat seat:seats)
+		{
+			Ticket ticket = new Ticket();
+			ticket.setSchedule(schedule);
+			ticket.setTicket_price(schedule.getSched_ticket_price());
+			ticket.setSeat(seat);
+			if(seat.getSeat_status().equals("0"))
+			{
+				ticket.setTicket_status(0);
+			}
+			else
+			{
+				ticket.setTicket_status(1);
+			}
+			ticketService.insertTicket(ticket);
+		}
+		
+		return count;
 	}
 	@RequestMapping(path="/date.do")
 	@ResponseBody
 	public List<Schedule> updateByDate(Schedule schedule)
 	{
+		
 		if(schedule.getSched_time()==null)
 		{
 			return null;
@@ -78,11 +134,12 @@ public class ScheduleController {
 		return scheduleService.getScheduleByDate(schedule);
 	}
 	@RequestMapping(path="/enter.do")
-	public String getAll(Model model)
+	@ResponseBody
+	public List<Schedule> getAll(Model model,HttpSession session)
 	{
 		List<Schedule> scheds=scheduleService.getSchedule();
-		model.addAttribute("scheds", scheds);
-		return "/performancePlan";
+
+		return scheds;
 	}
 	@RequestMapping("/stuname.do")
 	@ResponseBody

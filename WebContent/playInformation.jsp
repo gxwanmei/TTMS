@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>剧目管理</title>
 
-<link rel="stylesheet" href="../css/play.css">
+<link rel="stylesheet" href="/TTMS_v1.0/css/play.css">
 <script type="text/javascript" src="http://localhost:8080/TTMS_v1.0/jquery/jquery-1.9.1.js"></script>
 <script>
 $(function(){
@@ -33,7 +33,7 @@ $(function(){
 			<div class="addInput">
 								<input type="text" name="play_id" style="display:none" value="${play.play_id}">
 								<span>剧目类型:</span> 
-								<input type="text" class="input" id="play_type" value="爱情片">
+								<input type="text" class="input" id="play_type" value="${playtype}">
 							</div>
 							<div class="addInput">
 								<span>剧目名称:</span> <input type="text" class="input" id="play_name" value="${play.play_name}">
@@ -48,7 +48,7 @@ $(function(){
 								<span>剧目票价:</span> <input type="text" id="play_ticket_price" value="${play.play_ticket_price}">
 							</div>
 							<div class="addInput">
-								<span>剧目状态:</span> <input type="text" id="play_introduce" value="已上映">
+								<span>剧目状态:</span> <input type="text" id="play_introduce" value="${playstatus}">
 							</div>
 							<button class="btn btn-info" data-toggle="modal" data-target="#modifyPlay" id="modifyPlayButton">修改剧目</button>
 				</div>
@@ -68,6 +68,11 @@ $(function(){
 								<span>剧目类型:</span> <select name="play_type">
 									<option value="1">爱情片</option>
 									<option value="2">恐怖片</option>
+									<option value="3">动漫剧</option>
+									<option value="4">生活剧</option>
+									<option value="5">古装剧</option>
+									<option value="6">战争片</option>
+									<option value="7">科幻片</option>
 								</select>
 							</div>
 							<div class="addInput">

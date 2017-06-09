@@ -119,6 +119,20 @@ public class PlayServiceImp implements PlayService{
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public List<Play> findPlayByType(Play play) {
+		List<Play> list =null;
+		try {
+			list=dao.findPlayByType(play);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}	
 	
 }

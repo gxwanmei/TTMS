@@ -6,6 +6,13 @@ public class User {
 	String password;
 	String type;
 	String u_photo;
+	String img_string;
+	public String getImg_string() {
+		return img_string;
+	}
+	public void setImg_string(String img_string) {
+		this.img_string = img_string;
+	}
 	public Integer getId() {
 		return id;
 	}

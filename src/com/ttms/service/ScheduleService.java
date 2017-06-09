@@ -1,6 +1,7 @@
 package com.ttms.service;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.ttms.model.Schedule;
@@ -15,4 +16,6 @@ public interface ScheduleService {
 	public List<Schedule> getSchedule();
 	public List<Schedule> findScheduleById(Schedule schedule);
 	public List<Schedule> getScheduleDate();
+	public int getStuidioIdById(Schedule schedule);
+	public List<Schedule> getScheduleByPlayId(Schedule schedule);
 }

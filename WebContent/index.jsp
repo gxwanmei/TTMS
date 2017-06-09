@@ -38,8 +38,7 @@
 </script>
 <title>剧院管理系统</title>
 </head>
-<body
-	style="padding: 0px; margin: 0px; background-color: #FFCC99;; font-family: Arial, sans-serif">
+<body style="padding: 0px; margin: 0px; font-family: Arial, sans-serif">
 	<div id="header" class="col-lg-12">
 		<img class="img-circle col-lg-offset-1" src="/TTMS_v1.0/img/logo.jpg" id="logo" />
 		<span style="font-size: 20px">剧院管理系统</span>

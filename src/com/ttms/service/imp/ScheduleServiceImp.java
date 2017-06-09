@@ -137,6 +137,33 @@ public class ScheduleServiceImp implements ScheduleService{
 		}
 		return list;
 	}
+
+	@Override
+	public int getStuidioIdById(Schedule schedule) {
+		int id=0;
+		try {
+			 id=dao.getStuidioIdById(schedule);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+	}
+
+	@Override
+	public List<Schedule> getScheduleByPlayId(Schedule schedule) {
+		
+		List<Schedule> list = null;
+		try {
+			list= dao.getScheduleByPlayId(schedule);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 
 

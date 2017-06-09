@@ -73,6 +73,21 @@ http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		where s.sched_id=#{sched_id}
 	</select>
 	<select id="getScheduleDate" resultType="com.ttms.model.Schedule">
-		select sched_date from schedule
+		select sched_time from schedule
+	</select>
+	<select id=" getStuidioIdById" parameterType="com.ttms.model.Schedule" resultType="com.ttms.model.Studio">
+		select studio_id from schedule  where sched_id=#{sched_id}
+	</select>
+	<select id="getScheduleByPlayId" parameterType="com.ttms.model.Schedule" resultMap="schedule">
+		select 
+			t.studio_id,t.studio_language,t.studio_size,t.studio_type,t.studio_name,
+			p.play_id,p.play_name,p.play_image,p.play_introduce,p.play_length,p.play_status,p.play_ticket_price,p.play_type,
+			s.sched_id,s.sched_time,s.sched_ticket_price,s.sched_date
+		from schedule s
+		INNER JOIN studio t
+		on s.studio_id=t.studio_id
+		INNER JOIN play p
+		on s.play_id=p.play_id
+		where s.play_id=#{play.play_id}
 	</select>
 </mapper>

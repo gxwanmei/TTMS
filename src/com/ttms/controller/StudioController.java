@@ -89,9 +89,6 @@ public class StudioController {
 	@ResponseBody
 	public List<Seat> creat(Studio studio,Model model)
 	{
-		System.out.println(seatService.findSeatByStudioId(studio));
-		if(seatService.findSeatByStudioId(studio)==0)
-		{
 			seatService.deleteAllSeatByStudioId(studio);
 			if(studio.getStudio_size().equals("big"))
 			{
@@ -132,7 +129,6 @@ public class StudioController {
 						seatService.insertSeat(seat);
 					}
 			}
-		}
 		
 		List<Seat> list = seatService.getAllSeat(studio);
 		return list;
