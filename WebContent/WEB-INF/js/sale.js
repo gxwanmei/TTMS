@@ -67,17 +67,8 @@ $(function(){
 			})		
 			
 			$("#modifyTicketStatus").click(function(){
-				var array = [];
-				var tags=document.getElementsByTagName("div");
-				for(var i = 0 ; i < tags.length; i++){
-					if(tags[i].getAttribute("class") === "img-wrap  col-xs-5"){
-						array.push({"ticket_id":tags[i].firstChild.getAttribute("id")});
-					}
-				}
-				/*$.post("/TTMS_v1.0/sale/updateTicket.do",{},function(data)
-				{
-					alert(data);
-				})*/
+				$(".img-wrap").remove();
+				count=0;
 			})
 		})
 })

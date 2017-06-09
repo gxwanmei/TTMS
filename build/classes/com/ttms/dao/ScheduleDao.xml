@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.ScheduleDao">
+	<insert id="InsertSched" useGeneratedKeys="true" keyProperty="sched_id">
+		insert into schedule(studio_id,play_id,sched_time,sched_ticket_price,sched_date)
+		values
+		(#{studio.studio_id},#{play.play_id},#{sched_time},#{sched_ticket_price},#{sched_date})
+	</insert>
+	<select id="getScheduleById" parameterType="com.ttms.model.Schedule" resultType="com.ttms.model.Schedule">
+		select * from schedule where sched_id=#{sched_id}
+	</select>
+	<select id="getAllSchedule" resultType="com.ttms.model.Schedule">
+		select * from schedule
+	</select>
+	<delete id="deleteScheduleById" parameterType="com.ttms.model.Schedule">
+		delete from schedule where sched_id=#{sched_id}
+	</delete>
+	<update id="updateScheduleById" parameterType="com.ttms.model.Schedule">
+		update schedule set studio_id=#{studio.studio_id},play_id=#{play.play_id},
+		sched_time=#{sched_time},sched_ticket_price=#{sched_ticket_price},sched_date=#{sched_date}
+		where sched_id=#{sched_id}
+	</update>
+	<select id="getScheduleByDate" parameterType="com.ttms.model.Schedule" resultType="com.ttms.model.Schedule">
+		select * from schedule where sched_time=#{sched_time}
+	</select>
+	<resultMap type="com.ttms.model.Schedule" id="schedule">
+		<id property="sched_id" column="sched_id"/>
+		<result property="sched_time" column="sched_time"/>
+		<result property="sched_ticket_price" column="sched_ticket_price"/>
+		<result property="sched_date" column="sched_date"/>
+		<association property="studio" javaType="com.ttms.model.Studio">
+			<id property="studio_id" column="studio_id"/>
+			<result property="studio_name" column="studio_name" />
+			<result property="studio_language" column="studio_language"/>
+			<result property="studio_size" column="studio_size"/>
+			<result property="studio_type" column="studio_type"/>
+		</association>
+		<association property="play" javaType="com.ttms.model.Play">
+			<id property="play_id" column="play_id"/>
+			<result property="play_name" column="play_name"/>
+			<result property="play_image" column="play_image"/>
+			<result property="play_introduce" column="play_introduce"/>
+			<result property="play_length" column="play_length"/>
+			<result property="play_status" column="play_status"/>
+			<result property="play_ticket_price" column="play_ticket_price"/>
+			<result property="play_type" column="play_type"/>
+		</association>
+	
+	</resultMap>
+	<select id="getSchedule" resultMap="schedule">
+		select 
+			t.studio_id,t.studio_language,t.studio_size,t.studio_type,t.studio_name,
+			p.play_id,p.play_name,p.play_image,p.play_introduce,p.play_length,p.play_status,p.play_ticket_price,p.play_type,
+			s.sched_id,s.sched_time,s.sched_ticket_price,s.sched_date
+		from schedule s
+		INNER JOIN studio t
+		on s.studio_id=t.studio_id
+		INNER JOIN play p
+		on s.play_id=p.play_id
+		
+	</select>
+	<select id="findScheduleById" resultMap="schedule">
+		select 
+			t.studio_id,t.studio_language,t.studio_size,t.studio_type,t.studio_name,
+			p.play_id,p.play_name,p.play_image,p.play_introduce,p.play_length,p.play_status,p.play_ticket_price,p.play_type,
+			s.sched_id,s.sched_time,s.sched_ticket_price,s.sched_date
+		from schedule s
+		INNER JOIN studio t
+		on s.studio_id=t.studio_id
+		INNER JOIN play p
+		on s.play_id=p.play_id
+		where s.sched_id=#{sched_id}
+	</select>
+	<select id="getScheduleDate" resultType="com.ttms.model.Schedule">
+		select sched_time from schedule
+	</select>
+	<select id=" getStuidioIdById" parameterType="com.ttms.model.Schedule" resultType="com.ttms.model.Studio">
+		select studio_id from schedule  where sched_id=#{sched_id}
+	</select>
+	<select id="getScheduleByPlayId" parameterType="com.ttms.model.Schedule" resultMap="schedule">
+		select 
+			t.studio_id,t.studio_language,t.studio_size,t.studio_type,t.studio_name,
+			p.play_id,p.play_name,p.play_image,p.play_introduce,p.play_length,p.play_status,p.play_ticket_price,p.play_type,
+			s.sched_id,s.sched_time,s.sched_ticket_price,s.sched_date
+		from schedule s
+		INNER JOIN studio t
+		on s.studio_id=t.studio_id
+		INNER JOIN play p
+		on s.play_id=p.play_id
+		where s.play_id=#{play.play_id}
+	</select>
+</mapper>

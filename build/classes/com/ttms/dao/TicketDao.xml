@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ttms.dao.TicketDao">
+	<resultMap type="com.ttms.model.Ticket" id="tickets">
+		<id property="ticket_id" column="ticket_id"/>
+		<result property="ticket_price" column="ticket_price"/>
+		<result property="ticket_status" column="ticket_status"/>
+		<result property="sched_date" column="sched_date"/>
+		<association property="seat" javaType="com.ttms.model.Seat">
+			<id property="seat_id" column="seat_id"/>
+			<result property="seat_row" column="seat_row"/>
+			<result property="seat_colum" column="seat_column"/>
+			<result property="seat_status" column="seat_status"/>
+		</association>
+	
+	</resultMap>
+	<insert id="insertTicket" parameterType="com.ttms.model.Ticket"  useGeneratedKeys="true" keyProperty="ticket_id">
+		insert into ticket(seat_id,sched_id,ticket_price,ticket_status)
+			values(#{seat.seat_id},#{schedule.sched_id},#{ticket_price},#{ticket_status})
+	</insert>
+	<delete id="deleteTicketById"  parameterType="com.ttms.model.Ticket">
+		delete from ticket where sched_id=#{schedule.sched_id}
+	</delete>
+	<select id="getAll" parameterType="com.ttms.model.Ticket" resultMap="tickets">
+		select 
+			t.seat_id,t.sch,t.studio_size,t.studio_type,t.studio_name,
+			p.play_id,p.play_name,p.play_image,p.play_introduce,p.play_length,p.play_status,p.play_ticket_price,p.play_type,
+			s.sched_id,s.sched_time,s.sched_ticket_price,s.sched_date
+		from ticket t
+		INNER JOIN studio t
+		on s.studio_id=t.studio_id
+		INNER JOIN play p
+		on s.play_id=p.play_id
+		where s.sched_id=#{sched_id}
+	</select>
+	<select id="getTicketBySchedId" resultMap="tickets">
+		select 
+	t.seat_id,t.ticket_price,t.ticket_status,t.ticket_id,
+	s.seat_row,s.seat_column,s.seat_status
+	from ticket t
+	INNER JOIN seat s
+	on t.seat_id=s.seat_id
+	WHERE t.sched_id=#{schedule.sched_id}
+	</select>
+</mapper>
