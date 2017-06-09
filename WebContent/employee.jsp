@@ -9,6 +9,8 @@
 <title>人员管理</title>
 <script type="text/javascript" src="../jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="../js/employee.js"></script>
+<link rel="stylesheet" href="/TTMS_v1.0/css/common.css">
+
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -18,7 +20,7 @@
 
 				<form  action="/TTMS_v1.0/employee/query.do?currentPage=1" method="post">			
 					<label>用户编号：</label>
-					<input type="text"  name="emp_no" value="${emp_no}"/>			
+					<input type="text" class="input"  name="emp_no" value="${emp_no}"/>			
 					<input type="submit"  value="查   询" />&nbsp;&nbsp;
 				</form>
 			</div>

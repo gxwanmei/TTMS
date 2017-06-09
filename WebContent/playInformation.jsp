@@ -7,7 +7,7 @@
 <title>剧目管理</title>
 
 <link rel="stylesheet" href="/TTMS_v1.0/css/play.css">
-<script type="text/javascript" src="http://localhost:8080/TTMS_v1.0/jquery/jquery-1.9.1.js"></script>
+<script src="/TTMS_v1.0/js/jquery.min.js"></script>
 <script>
 $(function(){
 	var url = window.location.href;
@@ -15,7 +15,8 @@ $(function(){
 	var play_id = arr[1];	
 	$("#play_picture").change(function(){
 		var playImagePath = $("#play_picture").val();
-		$("#playImage").attr('src',playImagePath); 
+		console.log(playImagePath);
+		$("#playImageShow").attr('src',playImagePath); 
 	})
 })
 
@@ -33,22 +34,22 @@ $(function(){
 			<div class="addInput">
 								<input type="text" name="play_id" style="display:none" value="${play.play_id}">
 								<span>剧目类型:</span> 
-								<input type="text" class="input" id="play_type" value="${playtype}">
+								<span id="play_type" value="${playtype}">${playtype}</span>
 							</div>
 							<div class="addInput">
-								<span>剧目名称:</span> <input type="text" class="input" id="play_name" value="${play.play_name}">
+								<span>剧目名称:</span> <span id="play_name" value="${play.play_name}">${play.play_name}</span>
 							</div>
 							<div class="addInput">
-								<span>基本信息:</span> <input type="text" id="play_introduce" value="${play.play_introduce}">
+								<span>基本信息:</span> <span id="play_introduce" value="${play.play_introduce}">${play.play_introduce}</span>
 							</div>
 							<div class="addInput">
-								<span>剧目时长:</span> <input type="text" id="play_length" value="${play.play_length}">
+								<span>剧目时长:</span> <span id="play_length" value="${play.play_length}">${play.play_length}</span>
 							</div>
 							<div class="addInput">
-								<span>剧目票价:</span> <input type="text" id="play_ticket_price" value="${play.play_ticket_price}">
+								<span>剧目票价:</span> <span id="play_ticket_price" value="${play.play_ticket_price}">${play.play_ticket_price}</span>
 							</div>
 							<div class="addInput">
-								<span>剧目状态:</span> <input type="text" id="play_introduce" value="${playstatus}">
+								<span>剧目状态:</span> <span id="play_introduce" value="${playstatus}">${playstatus}</span>
 							</div>
 							<button class="btn btn-info" data-toggle="modal" data-target="#modifyPlay" id="modifyPlayButton">修改剧目</button>
 				</div>
@@ -96,7 +97,7 @@ $(function(){
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<img src="../img/init.jpg" data-toggle="modal" id="playImage"
+							<img src="../img/init.jpg" data-toggle="modal" id="playImageShow"
 								style="width: 155px; height: 200px;" data-target="#playImage"/>
 						</div>
 					</div>
